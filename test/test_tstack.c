@@ -33,6 +33,8 @@ int main()
     assert(*p == 10);
     assert(tstack_size(stack) == 0);
 
+    tstack_destroy(stack);
+
     printf("*** All tests PASSED *** \n" \
            "\n" \
            "Well done. Happy coding!!!\n");

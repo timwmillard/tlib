@@ -1,18 +1,23 @@
 CC=clang
 RM=rm
 
-all : tstack.o
+all : tstack.o tqueue.o
 
 tstack.o : tstack.c
 	${CC} -o tstack.o -c tstack.c
 
-test: test/test_tstack
+tqueue.o : tqueue.c
+	${CC} -o tqueue.o -c tqueue.c
 
-test/test_tstack: test/test_tstack.o
+test: test/test_tstack test/test_tqueue
+
+test/test_tstack: test/test_tstack.o tstack.o
 	${CC} -o test/test_tstack tstack.o test/test_tstack.o
 
-test_stack.o: test/test_stack.c
-	${CC} -o test_tstack.o -c test_tstack.c
+test/test_tqueue: test/test_tqueue.o tqueue.o
+	${CC} -o test/test_tqueue tqueue.o test/test_tqueue.o
+
+
 
 clean :
-	${RM} tstack.o test/test_tstack test/test_tstack.o
+	${RM} tstack.o test/test_tstack test/test_tstack.o tqueue.o test/test_tqueue test/test_tqueue.o
