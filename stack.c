@@ -1,10 +1,10 @@
 #include <stdlib.h>
 
-#include "tstack.h"
+#include "stack.h"
 
-TStack *tstack_create()
+Stack *stack_create()
 {
-    TStack *s = malloc(sizeof(TStack));
+    Stack *s = malloc(sizeof(Stack));
 
     s->head = NULL;
     s->size = 0;
@@ -12,21 +12,21 @@ TStack *tstack_create()
     return s;
 }
 
-void tstack_push(TStack *stack, void *data)
+void stack_push(Stack *stack, void *data)
 {
-    TStackNode *node = malloc(sizeof(TStackNode));
+    StackNode *node = malloc(sizeof(StackNode));
     node->data = data;
     node->next = stack->head;
     stack->head = node;
     stack->size++;
 }
 
-void *tstack_pop(TStack *stack)
+void *stack_pop(Stack *stack)
 {
     if (!stack->head)
         return NULL;
 
-    TStackNode *node = stack->head;
+    StackNode *node = stack->head;
     void *data = node->data;
     stack->head = node->next;
     free(node);
@@ -35,23 +35,23 @@ void *tstack_pop(TStack *stack)
     return data;
 }
 
-bool tstack_is_empty(TStack *stack)
+bool stack_is_empty(Stack *stack)
 {
     return stack->size == 0;
 }
 
-int tstack_size(TStack *stack)
+int stack_size(Stack *stack)
 {
     return stack->size;
 }
 
-void tstack_destroy(TStack *stack)
+void stack_destroy(Stack *stack)
 {
-    TStackNode *ptr = stack->head;
+    StackNode *ptr = stack->head;
 
     // Cleanup all the child nodes
     while (ptr) {
-        TStackNode *tmp = ptr;
+        StackNode *tmp = ptr;
         ptr = ptr->next;
         free(tmp);
     }

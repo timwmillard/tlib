@@ -29,17 +29,17 @@ Reset: \u001b[0m
 
 #include <stdio.h>
 
-void tcolor_red()
+void term_color_red()
 {
   printf("\033[1;31m");
 }
 
-void tcolor_yellow()
+void term_color_yellow()
 {
   printf("\033[1;33m");
 }
 
-void tcolor_reset ()
+void term_color_reset ()
 {
   printf("\033[0m");
 }

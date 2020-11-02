@@ -1,10 +1,10 @@
 #include <stdlib.h>
 
-#include "tqueue.h"
+#include "queue.h"
 
-TQueue *tqueue_create()
+Queue *queue_create()
 {
-    TQueue *queue = malloc(sizeof(TQueue));
+    Queue *queue = malloc(sizeof(Queue));
     queue->front = NULL;
     queue->rear = NULL;
     queue->size = 0;
@@ -12,9 +12,9 @@ TQueue *tqueue_create()
     return queue;
 }
 
-void tqueue_enqueue(TQueue *queue, void *data)
+void queue_enqueue(Queue *queue, void *data)
 {
-    TQueueNode *node = malloc(sizeof(TQueueNode));
+    QueueNode *node = malloc(sizeof(QueueNode));
     node->data = data;
     node->next = NULL;
 
@@ -28,12 +28,12 @@ void tqueue_enqueue(TQueue *queue, void *data)
     queue->size++;
 }
 
-void *tqueue_dequeue(TQueue *queue)
+void *queue_dequeue(Queue *queue)
 {
-    if (queue->size == 0)
+    if (queue->size <= 0)
         return NULL;
     
-    TQueueNode *node = queue->front;
+    QueueNode *node = queue->front;
     void *data = node->data;
 
     queue->front = node->next;
@@ -43,31 +43,31 @@ void *tqueue_dequeue(TQueue *queue)
     return data;
 }
 
-void *tqueue_peek(TQueue *queue)
+void *queue_peek(Queue *queue)
 {
-    if (queue->size == 0)
+    if (queue->size <= 0)
         return NULL;
     
     return queue->front->data;
 }
 
-bool tqueue_is_empty(TQueue *queue)
+bool queue_is_empty(Queue *queue)
 {
-    return queue->size > 0;
+    return queue->size <= 0;
 }
 
-int tqueue_size(TQueue *queue)
+int queue_size(Queue *queue)
 {
     return queue->size;
 }
 
-void tqueue_destroy(TQueue *queue)
+void queue_destroy(Queue *queue)
 {
-    TQueueNode *ptr = queue->front;
+    QueueNode *ptr = queue->front;
 
     // Cleanup all the child nodes
     while (ptr) {
-        TQueueNode *tmp = ptr;
+        QueueNode *tmp = ptr;
         ptr = ptr->next;
         free(tmp);
     }
