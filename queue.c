@@ -20,11 +20,10 @@ void queue_enqueue(Queue *queue, void *data)
 
     if (queue->rear) {
         queue->rear->next = node;
-        queue->rear = node;
     } else {
-        queue->rear = node;
         queue->front = node;
     }
+    queue->rear = node;
     queue->size++;
 }
 
@@ -38,6 +37,9 @@ void *queue_dequeue(Queue *queue)
 
     queue->front = node->next;
     queue->size--;
+
+    if (queue->front == NULL)
+        queue->rear = NULL;
 
     free(node);
     return data;
